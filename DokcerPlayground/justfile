@@ -26,3 +26,7 @@ build-image:
 
 run-image:
     docker run -p 8000:8000 fastapi-app
+
+ruff:
+    ruff format
+    ruff check --fix
