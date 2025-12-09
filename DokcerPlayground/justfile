@@ -21,3 +21,8 @@ fmt:
     uv run black .
 
 # Clean temporary files
+build-image:
+    docker build -t fastapi-app .
+
+run-image:
+    docker run -p 8000:8000 fastapi-app
