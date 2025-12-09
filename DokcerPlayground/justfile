@@ -1,0 +1,23 @@
+# A simple dummy justfile
+
+# Default task (runs when you call `just` with no args)
+default:
+    just --list
+
+# Run your Python script using uv
+run:
+    uv run python main.py
+
+# Install dependencies
+install:
+    uv sync
+
+# Run tests
+test:
+    uv run pytest
+
+# Format code
+fmt:
+    uv run black .
+
+# Clean temporary files
