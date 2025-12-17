@@ -1,0 +1,41 @@
+# A simple dummy justfile
+
+# Default task (runs when you call `just` with no args)
+default:
+    just --list
+
+# Run your Python script using uv
+run:
+    uv run python main.py
+
+# Install dependencies
+install:
+    uv sync
+
+# Run tests
+test:
+    uv run pytest
+
+# Format code
+fmt:
+    uv run black .
+
+# Clean temporary files
+build-image:
+    docker build -t fastapi-app .
+
+run-image:
+    docker run -p 8000:8000 fastapi-app
+
+ruff:
+    ruff format
+    ruff check --fix
+
+build-metaflow-image:
+    docker build -f Dockerfile-metaflow -t metaflow-dev .
+
+run-startup-metaflow:
+    docker run --rm metaflow-dev \
+      python ComplexFlow.py run
+
+metaflow: build-metaflow-image run-startup-metaflow
