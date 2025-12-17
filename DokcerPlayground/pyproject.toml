@@ -10,5 +10,7 @@ dependencies = [
     "requests",
     "tqdm",
     "ruff",
-    "loguru"
+    "loguru",
+    "metaflow",
+    "kubernetes"
 ]

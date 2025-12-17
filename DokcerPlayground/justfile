@@ -30,3 +30,12 @@ run-image:
 ruff:
     ruff format
     ruff check --fix
+
+build-metaflow-image:
+    docker build -f Dockerfile-metaflow -t metaflow-dev .
+
+run-startup-metaflow:
+    docker run --rm metaflow-dev \
+      python ComplexFlow.py run
+
+metaflow: build-metaflow-image run-startup-metaflow

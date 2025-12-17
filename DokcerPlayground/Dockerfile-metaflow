@@ -1,0 +1,31 @@
+# ---- Base image ----
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    METAFLOW_HOME=/opt/metaflow \
+    PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    ca-certificates \
+    build-essential \
+    docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://dl.k8s.io/release/stable.txt | \
+    xargs -I {} curl -fsSL https://dl.k8s.io/release/{}/bin/linux/amd64/kubectl \
+    -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+
+RUN pip install --upgrade pip && \
+    pip install metaflow[kubernetes] boto3 awscli
+
+
+ENV METAFLOW_USER=metaflow
+
+COPY src/metaflow/ComplexFlow.py /app/ComplexFlow.py
+
+CMD ["metaflow", "--help"]
