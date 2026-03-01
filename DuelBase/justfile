@@ -1,6 +1,11 @@
+set shell := ["powershell.exe", "-Command"]
 
-
+default:
+    @just --list
 
 uv-sync:
     uv sync
     uv lock
+
+mypy:
+    mypy .
