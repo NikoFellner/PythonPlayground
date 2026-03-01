@@ -1,0 +1,6 @@
+
+
+
+uv-sync:
+    uv sync
+    uv lock
