@@ -3,9 +3,13 @@ set shell := ["powershell.exe", "-Command"]
 default:
     @just --list
 
-uv-sync:
+uv:
     uv sync
     uv lock
 
 mypy:
     mypy .
+
+ruff:
+    ruff check --fix
+    ruff format
