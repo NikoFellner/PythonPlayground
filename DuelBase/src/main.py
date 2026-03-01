@@ -1,7 +1,5 @@
 from src.character.mage import Mage
 from src.character.warrior import Warrior
-from src.services.game_service import Game
-from src.services.user_interface_service import UserInterface
 
 if __name__ == "__main__":
     mage = Mage()

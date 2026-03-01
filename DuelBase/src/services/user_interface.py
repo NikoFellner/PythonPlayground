@@ -2,7 +2,7 @@ from tkinter import Tk, ttk
 
 
 class UserInterface:
-    def setup_screen(self, ui:Tk):
+    def setup_screen(self, ui: Tk):
         frm = ttk.Frame(ui, padding=10)
         frm.grid()
 

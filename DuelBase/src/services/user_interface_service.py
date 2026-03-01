@@ -1,5 +1,4 @@
-from time import sleep
-from tkinter import Tk, ttk
+from tkinter import Tk
 
 from src.services.user_interface import UserInterface
 
@@ -37,6 +36,6 @@ class UserInterfaceService:
         self.running_ui.title("DuelBase")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ui = UserInterfaceService()
     ui.start()

@@ -2,7 +2,6 @@ from src.character.base.base_character import BaseCharacter
 
 
 class Mage(BaseCharacter):
-
     def attack(self) -> int:
         return self.attack_power * 2
 
