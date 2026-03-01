@@ -13,3 +13,5 @@ mypy:
 ruff:
     ruff check --fix
     ruff format
+
+pre-commit: mypy ruff
