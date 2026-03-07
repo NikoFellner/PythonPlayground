@@ -4,6 +4,6 @@ from src.character.enemy.enemy_type import EnemyConfig, EnemyMapping
 
 class EnemyFactory:
     @staticmethod
-    def create_enemy(enemy_type: EnemyConfig) -> EnemyBase:
-        enemy_instance = EnemyMapping.enemy_mapping[enemy_type.enemy_type]
+    def create_enemy(enemy_config: EnemyConfig) -> EnemyBase:
+        enemy_instance = EnemyMapping.enemy_mapping[enemy_config.enemy_type]
         return enemy_instance()
