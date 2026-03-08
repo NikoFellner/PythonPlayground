@@ -1,4 +1,4 @@
-from src.character.enemy.enemy import EnemyBase
+from src.character.enemy.enemy_base import EnemyBase
 from src.character.enemy.enemy_type import EnemyConfig, EnemyMapping
 
 

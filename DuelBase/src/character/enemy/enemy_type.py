@@ -2,7 +2,8 @@ from enum import StrEnum
 
 from pydantic import BaseModel
 
-from src.character.enemy.enemy import EnemyEasy, EnemyMedium
+from src.character.enemy.enemy_easy import EnemyEasy
+from src.character.enemy.enemy_medium import EnemyMedium
 
 
 class EnemyType(StrEnum):
