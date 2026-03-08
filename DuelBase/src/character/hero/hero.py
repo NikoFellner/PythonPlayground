@@ -4,6 +4,6 @@ from src.character.hero.hero_type import HeroConfig, HeroMapping
 
 class Hero:
     @staticmethod
-    def create_enemy(hero_config: HeroConfig) -> BaseCharacter:
+    def create_hero(hero_config: HeroConfig) -> BaseCharacter:
         hero_instance = HeroMapping.hero_mapping[hero_config.hero_type]
         return hero_instance()

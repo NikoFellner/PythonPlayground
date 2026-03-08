@@ -1,10 +1,12 @@
+from src.character.base.base_character import BaseCharacter
 from src.character.enemy.enemy_factory import EnemyFactory
-from src.character.hero.hero import Hero
-from src.services.user_interface import UserInterface
 
 
 class Game:
-    def __init__(self):
-        self.ui = UserInterface()
-        self.enemy_factory = EnemyFactory()
-        self.hero_factory = Hero()
+    def __init__(
+        self,
+        enemy_factory: EnemyFactory,
+        hero: BaseCharacter,
+    ):
+        self.enemy_factory = enemy_factory
+        self.hero_factory = hero
