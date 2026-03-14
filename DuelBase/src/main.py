@@ -1,26 +1,14 @@
-from src.character.enemy.enemy_factory import EnemyFactory
 from src.character.enemy.enemy_type import EnemyConfig, EnemyType
-from src.character.mage import Mage
-from src.character.warrior import Warrior
+from src.character.hero.hero_type import HeroConfig, HeroType
+from src.services.dependency_injection import DependencyInjection
+from src.user_interface.ui_config import UIConfig
 
 if __name__ == "__main__":
-    mage = Mage()
-    warrior = Warrior()
+    enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
+    hero_config = HeroConfig(hero_type=HeroType.MAGE)
+    ui_config = UIConfig()
+    di = DependencyInjection(enemy_config=enemy_config, hero_config=hero_config, ui_config=ui_config)
 
-    while True:
-        print(f"Mage health: {mage.health}")
-        print(f"Warrior healt: {warrior.health}")
+    game = di.game
+    game.fight()
 
-        dmg = mage.attack()
-        warrior.health -= dmg
-        dmg = warrior.attack()
-        mage.health -= dmg
-
-        if mage.health <= 0 or warrior.health <= 0:
-            break
-
-        enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
-        easy_enemy = EnemyFactory.create_enemy(enemy_config)
-        enemy_config = EnemyConfig(enemy_type=EnemyType.MEDIUM)
-        medium_enemy = EnemyFactory.create_enemy(enemy_config)
-        print()
