@@ -26,14 +26,16 @@ class EnemyBase(BaseCharacter):
             self._health + self._health_power_level * self._difficulty_power_level * 5
         )
 
-    def _increase_attack_power_level(self, value: int) -> None:
-        self._attack_power_level += value
+    @property
+    def difficulty_power_level(self) -> float:
+        return self._difficulty_power_level
 
-    def _increase_health_power_level(self, value: int) -> None:
-        self._health_power_level += value
-
-    def _increase_armor_power_level(self, value: int) -> None:
-        self._armor_power_level += value
-
-    def _increase_difficulty_power_level(self, value: int) -> None:
-        self._difficulty_power_level += value
+    @property
+    def health_power_level(self) -> float:
+        return self._health_power_level
+    @property
+    def armor_power_level(self) -> float:
+        return self._armor_power_level
+    @property
+    def attack_power_level(self)->float:
+        return self._attack_power_level
