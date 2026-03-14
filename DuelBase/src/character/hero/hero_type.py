@@ -18,7 +18,7 @@ class HeroConfig(BaseModel):
 
 
 class HeroMapping(dict):
-    hero_mapping:dict[HeroType, Type[BaseCharacter]] = {
+    hero_mapping: dict[HeroType, Type[BaseCharacter]] = {
         HeroType.MAGE: Mage,
         HeroType.WARRIOR: Warrior,
     }
