@@ -15,3 +15,6 @@ ruff:
     ruff format
 
 pre-commit: mypy ruff
+
+unit-test:
+    uv run pytest
