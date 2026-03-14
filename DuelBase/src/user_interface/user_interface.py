@@ -1,8 +1,11 @@
 from tkinter import Tk, ttk, PhotoImage, StringVar, LEFT
 
+from src.user_interface.ui_config import UIConfig
+
 
 class UserInterface:
-    def __init__(self):
+    def __init__(self, ui_config: UIConfig):
+        self.ui_config = ui_config
         self.hero_health = StringVar(value="Hero HP: 100")
         self.enemy_health = StringVar(value="Enemy HP: 100")
         self.combat_log = StringVar(value="Combat log...")

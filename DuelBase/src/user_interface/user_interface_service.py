@@ -1,6 +1,6 @@
 from tkinter import Tk
 
-from src.services.user_interface import UserInterface
+from src.user_interface.user_interface import UserInterface
 
 
 class UserInterfaceService:
