@@ -1,5 +1,6 @@
 from src.character.base.base_character import BaseCharacter
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from src.character.enemy.enemy_type import EnemyConfig
 
@@ -33,9 +34,11 @@ class EnemyBase(BaseCharacter):
     @property
     def health_power_level(self) -> float:
         return self._health_power_level
+
     @property
     def armor_power_level(self) -> float:
         return self._armor_power_level
+
     @property
-    def attack_power_level(self)->float:
+    def attack_power_level(self) -> float:
         return self._attack_power_level

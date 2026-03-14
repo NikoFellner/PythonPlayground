@@ -22,5 +22,3 @@ class EnemySpawnService:
         )
 
         return self._enemy_factory.create_enemy(enemy_config)
-
-

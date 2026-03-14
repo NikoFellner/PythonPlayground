@@ -3,44 +3,48 @@ from src.character.enemy.enemy_type import EnemyConfig, EnemyType
 
 
 def test_increase_difficulty_power():
-    #arrange
+    # arrange
     enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
     enemy_factory = EnemyFactory(enemy_config)
-    #act
+    # act
     enemy_factory.increase_difficulty_power(10)
     enemy_instance = enemy_factory.create_enemy(enemy_factory.enemy_config)
 
     assert enemy_instance.difficulty_power_level == 10
 
+
 def test_increase_health_power():
-    #arrange
+    # arrange
     enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
     enemy_factory = EnemyFactory(enemy_config)
-    #act
+    # act
     enemy_factory.increase_health_power(10)
     enemy_instance = enemy_factory.create_enemy(enemy_factory.enemy_config)
 
     assert enemy_instance.health_power_level == 10
 
+
 def test_increase_attack_power():
-    #arrange
+    # arrange
     enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
     enemy_factory = EnemyFactory(enemy_config)
-    #act
+    # act
     enemy_factory.increase_attack_power(10)
     enemy_instance = enemy_factory.create_enemy(enemy_factory.enemy_config)
 
     assert enemy_instance.attack_power_level == 10
 
+
 def test_increase_armor_power():
-    #arrange
+    # arrange
     enemy_config = EnemyConfig(enemy_type=EnemyType.EASY)
     enemy_factory = EnemyFactory(enemy_config)
-    #act
+    # act
     enemy_factory.increase_armor_power(10)
     enemy_instance = enemy_factory.create_enemy(enemy_factory.enemy_config)
 
     assert enemy_instance.armor_power_level == 10
+
 
 def test_change_enemy_type():
     enemy_type1 = EnemyType.EASY

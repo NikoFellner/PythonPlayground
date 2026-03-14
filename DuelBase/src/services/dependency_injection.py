@@ -9,14 +9,18 @@ from src.user_interface.ui_config import UIConfig
 
 
 class DependencyInjection:
-    def __init__(self, hero_config: HeroConfig, enemy_config: EnemyConfig, ui_config: UIConfig):
+    def __init__(
+        self, hero_config: HeroConfig, enemy_config: EnemyConfig, ui_config: UIConfig
+    ):
         self.hero_config = hero_config
         self.enemy_config = enemy_config
         self.__ui_config = ui_config
 
         self.__hero = self._create_hero(hero_config)
         self.__enemy_factory = self._create_enemy_factory(enemy_config)
-        self.__game = self._create_game(self.__hero, self.__enemy_factory, self.enemy_config)
+        self.__game = self._create_game(
+            self.__hero, self.__enemy_factory, self.enemy_config
+        )
 
     @property
     def hero(self) -> BaseCharacter:
@@ -35,7 +39,9 @@ class DependencyInjection:
         return self.__ui_config
 
     @staticmethod
-    def _create_game(hero:BaseCharacter, enemy:EnemyFactory, enemy_config: EnemyConfig):
+    def _create_game(
+        hero: BaseCharacter, enemy: EnemyFactory, enemy_config: EnemyConfig
+    ):
         return Game(hero=hero, enemy_factory=enemy, enemy_config=enemy_config)
 
     @staticmethod
@@ -43,5 +49,5 @@ class DependencyInjection:
         return Hero.create_hero(hero_config)
 
     @staticmethod
-    def _create_enemy_factory(enemy_config:EnemyConfig) -> EnemyFactory:
+    def _create_enemy_factory(enemy_config: EnemyConfig) -> EnemyFactory:
         return EnemyFactory(enemy_config)

@@ -4,13 +4,15 @@ from src.character.enemy.enemy_factory import EnemyFactory
 from src.character.enemy.enemy_type import EnemyConfig
 from loguru import logger
 
+from src.messaging.messages_exceptions import HeroDied
+
 
 class Game:
     def __init__(
         self,
         enemy_factory: EnemyFactory,
         hero: BaseCharacter,
-        enemy_config: EnemyConfig
+        enemy_config: EnemyConfig,
     ):
         self.enemy_factory = enemy_factory
         self.hero = hero
@@ -18,14 +20,15 @@ class Game:
 
     def fight(self):
         while self.hero.health > 0:
-            enemy_instance = self.enemy_factory.create_enemy(self.enemy_factory.enemy_config)
+            enemy_instance = self.enemy_factory.create_enemy(
+                self.enemy_factory.enemy_config
+            )
             self.hero = Game._fight(enemy=enemy_instance, hero=self.hero)
             self.enemy_factory.increase_health_power(5)
             self.hero.heal()
 
-
     @staticmethod
-    def _fight(enemy:EnemyBase, hero:BaseCharacter):
+    def _fight(enemy: EnemyBase, hero: BaseCharacter):
         while enemy.health > 0 and hero.health > 0:
             hero_dmg = hero.attack()
             logger.info(f"Hero dmg dealt:{hero_dmg}")
@@ -42,14 +45,7 @@ class Game:
             if hero.health <= 0:
                 Game.game_over()
 
-
     @staticmethod
     def game_over():
-        logger.info(f"Game over")
+        logger.info("Game over")
         raise HeroDied()
-
-class HeroDied(Exception):
-    """Raised when the hero dies."""
-
-    def __init__(self, message: str = "The hero has died."):
-        super().__init__(message)
