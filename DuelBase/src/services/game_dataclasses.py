@@ -10,4 +10,10 @@ class FightResults:
 
 @dataclass
 class GameData:
-    game_level: int =1
+    game_level:int = 1
+
+@dataclass
+class GameSummary:
+    final_hero_health:int
+    levels_cleard: int =1
+    hero_alive:bool = True
