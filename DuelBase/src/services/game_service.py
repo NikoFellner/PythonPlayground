@@ -20,7 +20,7 @@ class Game:
     @staticmethod
     def _fight(
         enemy: EnemyBase, hero: BaseCharacter
-    ) -> FightResults | None:
+    ) -> FightResults:
         while enemy.health > 0 and hero.health > 0:
             hero_dmg = hero.attack()
             logger.info(f"Hero dmg dealt:{hero_dmg}")
@@ -28,20 +28,30 @@ class Game:
             enemy.health -= hero_dmg
             if enemy.health <= 0:
                 logger.info("You won this fight!")
-                return FightResults(hero_alive=True, enemy_alive=False, hero_health=hero.health, enemy_health=enemy.health)
+                return FightResults(
+                    hero_alive=True,
+                    enemy_alive=False,
+                    hero_health=hero.health,
+                    enemy_health=enemy.health,
+                )
             enemy_dmg = enemy.attack()
             hero.health -= enemy_dmg
             logger.info(f"Enemy dmg dealt: {enemy_dmg}")
             logger.info(f"Hero health: {hero.health}")
             if hero.health <= 0:
-                return FightResults(hero_alive=False, enemy_alive=True, hero_health=hero.health, enemy_health=enemy.health)
+                return FightResults(
+                    hero_alive=False,
+                    enemy_alive=True,
+                    hero_health=hero.health,
+                    enemy_health=enemy.health,
+                )
 
     @staticmethod
     def game_over():
         logger.info("Game over")
         raise HeroDied()
 
-    def game_loop(self) -> GameSummary | None:
+    def game_loop(self) -> GameSummary:
         game_data = GameData()
         while self.hero.health > 0:
             enemy = self.enemy_factory.create_enemy(self.enemy_factory.enemy_config)
@@ -49,21 +59,20 @@ class Game:
 
             if not fight_result.hero_alive:
                 return GameSummary(
-                    levels_cleard=game_data.game_level -1,
+                    levels_cleared=game_data.game_level - 1,
                     hero_alive=False,
-                    final_hero_health=fight_result.hero_health
+                    final_hero_health=fight_result.hero_health,
                 )
             game_data.game_level += 1
-            self.enemy_factory.enemy_config = self._scale_difficulty(self.enemy_factory.enemy_config)
-            self.hero.heal()
+            self._scale_difficulty(self.enemy_factory.enemy_config)
+            self.hero.health = self.hero.heal()
 
         return GameSummary(
-            levels_cleard=game_data.game_level - 1,
+            levels_cleared=game_data.game_level - 1,
             hero_alive=False,
-            final_hero_health=self.hero.health
+            final_hero_health=self.hero.health,
         )
 
     @staticmethod
-    def _scale_difficulty(enemy_config:EnemyConfig)-> EnemyConfig:
-        enemy_config.enemy_stats.difficulty_power_level = enemy_config.enemy_stats.difficulty_power_level +1
-        return enemy_config
+    def _scale_difficulty(enemy_config: EnemyConfig) -> None:
+        enemy_config.enemy_stats.difficulty_power_level += 1
