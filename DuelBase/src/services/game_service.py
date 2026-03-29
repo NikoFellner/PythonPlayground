@@ -4,7 +4,6 @@ from src.character.enemy.enemy_factory import EnemyFactory
 from src.character.enemy.enemy_type import EnemyConfig
 from loguru import logger
 
-from src.messaging.messages_exceptions import HeroDied
 from src.services.game_dataclasses import FightResults, GameData, GameSummary
 
 
@@ -18,10 +17,8 @@ class Game:
         self.hero = hero
 
     @staticmethod
-    def _fight(
-        enemy: EnemyBase, hero: BaseCharacter
-    ) -> FightResults:
-        while enemy.health > 0 and hero.health > 0:
+    def _fight(enemy: EnemyBase, hero: BaseCharacter) -> FightResults:
+        while hero.health > 0:
             hero_dmg = hero.attack()
             logger.info(f"Hero dmg dealt:{hero_dmg}")
             logger.info(f"Enemy health: {enemy.health}")
@@ -38,18 +35,13 @@ class Game:
             hero.health -= enemy_dmg
             logger.info(f"Enemy dmg dealt: {enemy_dmg}")
             logger.info(f"Hero health: {hero.health}")
-            if hero.health <= 0:
-                return FightResults(
-                    hero_alive=False,
-                    enemy_alive=True,
-                    hero_health=hero.health,
-                    enemy_health=enemy.health,
-                )
 
-    @staticmethod
-    def game_over():
-        logger.info("Game over")
-        raise HeroDied()
+        return FightResults(
+            hero_alive=False,
+            enemy_alive=True,
+            hero_health=hero.health,
+            enemy_health=enemy.health,
+        )
 
     def game_loop(self) -> GameSummary:
         game_data = GameData()

@@ -8,4 +8,4 @@ if __name__ == "__main__":
     di = DependencyInjection(enemy_config=enemy_config, hero_config=hero_config)
 
     game = di.game
-    game.fight()
+    game.game_loop()

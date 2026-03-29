@@ -13,9 +13,7 @@ class DependencyInjection:
 
         self.__hero = self._create_hero(hero_config)
         self.__enemy_factory = self._create_enemy_factory(enemy_config)
-        self.__game = self._create_game(
-            self.__hero, self.__enemy_factory, self.enemy_config
-        )
+        self.__game = self._create_game(self.__hero, self.__enemy_factory)
 
     @property
     def hero(self) -> BaseCharacter:
@@ -30,10 +28,8 @@ class DependencyInjection:
         return self.__game
 
     @staticmethod
-    def _create_game(
-        hero: BaseCharacter, enemy: EnemyFactory, enemy_config: EnemyConfig
-    ):
-        return Game(hero=hero, enemy_factory=enemy, enemy_config=enemy_config)
+    def _create_game(hero: BaseCharacter, enemy: EnemyFactory):
+        return Game(hero=hero, enemy_factory=enemy)
 
     @staticmethod
     def _create_hero(hero_config: HeroConfig) -> BaseCharacter:
