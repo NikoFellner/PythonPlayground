@@ -1,23 +1,23 @@
 from abc import ABC, abstractmethod
 
+from src.character.hero.hero_type import HeroStats
+
 
 class BaseCharacter(ABC):
-    def __init__(self):
-        self._health = 100
-        self._attack_power = 1
-        self._armor = 1
+    def __init__(self, stats:HeroStats):
+        self.__stats = stats
 
     @property
     def health(self):
-        return self._health
+        return self.__stats.health
 
     @health.setter
     def health(self, health):
-        self._health = health
+        self.__stats.health = health
 
     @property
     def armor(self):
-        return self._armor
+        return self.__stats.armor
 
     @armor.setter
     def armor(self, armor):
