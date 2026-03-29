@@ -8,5 +8,12 @@ dependencies = [
     "ruff",
     "pydantic",
     "pytest",
+    "pytest-cov",
     "loguru"
+]
+[tool.coverage.run]
+omit = [
+    "src/main.py",
+    "*/__init__.py",
+    "src/user_interface/*"
 ]

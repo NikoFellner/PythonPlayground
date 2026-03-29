@@ -18,3 +18,6 @@ pre-commit: mypy ruff
 
 unit-test:
     uv run pytest
+
+test-cov:
+    uv run pytest --cov=src --cov-fail-under=85 --cov-report=html

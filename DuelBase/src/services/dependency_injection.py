@@ -5,16 +5,11 @@ from src.character.hero.hero import Hero
 from src.character.hero.hero_type import HeroConfig
 from src.services.game_service import Game
 
-from src.user_interface.ui_config import UIConfig
-
 
 class DependencyInjection:
-    def __init__(
-        self, hero_config: HeroConfig, enemy_config: EnemyConfig, ui_config: UIConfig
-    ):
+    def __init__(self, hero_config: HeroConfig, enemy_config: EnemyConfig):
         self.hero_config = hero_config
         self.enemy_config = enemy_config
-        self.__ui_config = ui_config
 
         self.__hero = self._create_hero(hero_config)
         self.__enemy_factory = self._create_enemy_factory(enemy_config)
@@ -33,10 +28,6 @@ class DependencyInjection:
     @property
     def game(self) -> Game:
         return self.__game
-
-    @property
-    def ui_config(self) -> UIConfig:
-        return self.__ui_config
 
     @staticmethod
     def _create_game(

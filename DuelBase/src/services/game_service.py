@@ -23,12 +23,14 @@ class Game:
             enemy_instance = self.enemy_factory.create_enemy(
                 self.enemy_factory.enemy_config
             )
-            self.hero, _= Game._fight(enemy=enemy_instance, hero=self.hero)
+            self.hero, _ = Game._fight(enemy=enemy_instance, hero=self.hero)
             self.enemy_factory.increase_health_power(5)
             self.hero.heal()
 
     @staticmethod
-    def _fight(enemy: EnemyBase, hero: BaseCharacter)->tuple[BaseCharacter, EnemyBase]|None:
+    def _fight(
+        enemy: EnemyBase, hero: BaseCharacter
+    ) -> tuple[BaseCharacter, EnemyBase] | None:
         while enemy.health > 0 and hero.health > 0:
             hero_dmg = hero.attack()
             logger.info(f"Hero dmg dealt:{hero_dmg}")
@@ -36,7 +38,6 @@ class Game:
             enemy.health -= hero_dmg
             if enemy.health <= 0:
                 logger.info("You won this fight!")
-                return hero, enemy
 
             enemy_dmg = enemy.attack()
             hero.health -= enemy_dmg
@@ -44,6 +45,7 @@ class Game:
             logger.info(f"Hero health: {hero.health}")
             if hero.health <= 0:
                 Game.game_over()
+        return hero, enemy
 
     @staticmethod
     def game_over():
