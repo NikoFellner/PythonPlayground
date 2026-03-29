@@ -57,7 +57,7 @@ class Game:
                 )
             game_data.game_level += 1
             self._scale_difficulty(self.enemy_factory.enemy_config)
-            self.hero.health = self.hero.heal()
+            self.hero.heal()
 
         return GameSummary(
             levels_cleared=game_data.game_level - 1,

@@ -1,8 +1,6 @@
-import pytest
 
 from src.character.enemy.enemy_type import EnemyConfig, EnemyType, EnemyStats
 from src.character.hero.hero_type import HeroConfig, HeroType
-from src.messaging.messages_exceptions import HeroDied
 from src.services.dependency_injection import DependencyInjection
 
 

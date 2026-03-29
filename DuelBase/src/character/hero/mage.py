@@ -14,5 +14,5 @@ class Mage(BaseCharacter):
     def defend(self) -> int:
         return self.armor * 0.5
 
-    def heal(self) -> int:
-        return self._health + 5
+    def heal(self) -> None:
+        self._health += 5
