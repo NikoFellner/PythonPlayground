@@ -1,23 +1,14 @@
-from dataclasses import dataclass
 from enum import StrEnum
 from typing import Type
 
 from pydantic import BaseModel
 
+from src.character.base.character_stats import HeroStats
 from src.character.base.base_character import BaseCharacter
 from src.character.hero.mage import Mage
 from src.character.hero.warrior import Warrior
 
-@dataclass
-class HeroStats:
-    health: int
-    physical_defense: int
-    magical_defense:int
-    strength: int
-    intelligence: int
-
-@dataclass
-class HeroLevel:
+class HeroLevel(BaseModel):
     xp: int = 0
     xp_to_next_level: int = 100
     current_level: int = 1
@@ -42,7 +33,7 @@ class WarriorHeroStats:
 
 class HeroConfig(BaseModel):
     hero_type: HeroType
-    hero_level: HeroLevel
+    hero_level: HeroLevel = HeroLevel()
 
 class HeroMapping(dict):
     hero_type_mapping: dict[HeroType, Type[BaseCharacter]] = {
@@ -51,7 +42,6 @@ class HeroMapping(dict):
     }
 
     hero_stats_mapping: dict[HeroType, HeroStats] = {
-        HeroType.MAGE: MageHeroStats,
-        HeroType.WARRIOR: WarriorHeroStats,
+        HeroType.MAGE: MageHeroStats.stats,
+        HeroType.WARRIOR: WarriorHeroStats.stats,
     }
-

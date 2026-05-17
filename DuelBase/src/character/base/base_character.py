@@ -1,26 +1,36 @@
 from abc import ABC, abstractmethod
 
-from src.character.hero.hero_type import HeroStats
+from src.character.base.character_stats import HeroStats
 
 
 class BaseCharacter(ABC):
-    def __init__(self, stats:HeroStats):
-        self.__stats = stats
+    def __init__(self, stats: HeroStats | None = None):
+        self._stats = stats
 
     @property
     def health(self):
-        return self.__stats.health
+        if self._stats is not None:
+            return self._stats.health
+        return self._health
 
     @health.setter
     def health(self, health):
-        self.__stats.health = health
+        if self._stats is not None:
+            self._stats.health = health
+            return
+        self._health = health
 
     @property
     def armor(self):
-        return self.__stats.armor
+        if self._stats is not None:
+            return self._stats.physical_defense
+        return self._armor
 
     @armor.setter
     def armor(self, armor):
+        if self._stats is not None:
+            self._stats.physical_defense = armor
+            return
         self._armor = armor
 
     @property
