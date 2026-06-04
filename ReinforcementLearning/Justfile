@@ -1,0 +1,15 @@
+default:
+    @just --justfile {{justfile()}} --list
+
+uv:
+    uv sync
+
+ruff:
+    ruff format
+    ruff check --fix
+
+mypy:
+    mypy .
+
+unit-test:
+    pytest ./tests/unit
