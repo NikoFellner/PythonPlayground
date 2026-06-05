@@ -21,29 +21,51 @@ class State(BaseModel):
     x_pos: int
     y_pos: int
 
-
-class GridCoordniate(BaseModel):
-    x_pos: int
-    y_pos: int
-
-    @property
-    def position(self) -> tuple[int, int]:
-        return (self.x_pos, self.y_pos)
-
-
 class GridEnvironment:
     def __init__(self):
         self._state = self.reset()
+        self._player_position = None
 
     @staticmethod
     def reset() -> State:
-        return State(x_pos=0, y_pos=0)
+        return State(x_pos=1, y_pos=1)
 
-    def step(self, action: Action):
-        pass
+    @staticmethod
+    def step(player_position, action: Action)-> tuple[int,int]:
+        if action.action == GridAction.up:
+            new_player_position = (player_position[0]-1,player_position[1])
+        elif action.action == GridAction.down:
+            new_player_position= (player_position[0]+1,player_position[1])
+        elif action.action == GridAction.right:
+            new_player_position= (player_position[0],player_position[1]+1)
+        elif action.action == GridAction.left:
+            new_player_position= (player_position[0],player_position[1]-1)
+        return new_player_position
 
-    def get_available_action(self):
-        pass
+    @staticmethod
+    def get_available_action(
+        grid_shape: tuple[int, int], player_position: tuple[int, int]
+    ) -> list[Action]:
+        x_player = player_position[1]
+        y_player = player_position[0]
+
+        grid_width = grid_shape[1]
+        grid_height = grid_shape[0]
+
+        available_action: list[Action] = []
+
+        if y_player > 1:
+            available_action.append(Action(action=GridAction.up))
+
+        if y_player < grid_height:
+            available_action.append(Action(action=GridAction.down))
+
+        if x_player > 1:
+            available_action.append(Action(action=GridAction.left))
+
+        if x_player < grid_width:
+            available_action.append(Action(action=GridAction.right))
+        return available_action
 
     @staticmethod
     def create_grid(width: int, height: int) -> tuple[ndarray, tuple[int, int]]:
@@ -88,12 +110,12 @@ class GridEnvironment:
         grid_field_with_final_position = self.set_final_positon(
             grid_field, final_position
         )
-        player_position = self.get_player_position(grid_shape, final_position)
+        self._player_position = self.get_player_position(grid_shape, final_position)
         grid_field_with_player_position = self.set_player_position(
-            grid_field_with_final_position, player_position
+            grid_field_with_final_position, self._player_position
         )
         return grid_field_with_player_position
 
     @staticmethod
-    def print_grid(grid:ndarray)->None:
+    def print_grid(grid: ndarray) -> None:
         print(grid)

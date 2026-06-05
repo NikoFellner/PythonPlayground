@@ -122,3 +122,66 @@ def test_create_environment():
 
     assert np.count_nonzero(grid_field == 2) == 1
     assert np.count_nonzero(grid_field == 1) == 1
+
+
+def test_available_action_center():
+    grid_shape = (5, 5)
+    player_position = (2, 2)
+
+    available_actions = GridEnvironment.get_available_action(
+        grid_shape, player_position
+    )
+
+    assert len(available_actions) == 4
+    assert Action(action=GridAction.right) in available_actions
+    assert Action(action=GridAction.down) in available_actions
+    assert Action(action=GridAction.left) in available_actions
+    assert Action(action=GridAction.up) in available_actions
+
+
+def test_available_action_left_upper_corner():
+    grid_shape = (5, 5)
+    player_position = (1, 1)
+
+    available_actions = GridEnvironment.get_available_action(
+        grid_shape, player_position
+    )
+    assert len(available_actions) == 2
+    assert Action(action=GridAction.right) in available_actions
+    assert Action(action=GridAction.down) in available_actions
+
+def test_step_up():
+    player_position = (2,2)
+    action = Action(action=GridAction.up)
+
+    result_player_position = GridEnvironment.step(player_position, action)
+
+    expected_position = (1,2)
+    assert result_player_position == expected_position
+
+def test_step_down():
+    player_position = (2,2)
+    action = Action(action=GridAction.down)
+
+    result_player_position = GridEnvironment.step(player_position, action)
+
+    expected_position = (3,2)
+    assert result_player_position == expected_position
+
+def test_step_left():
+    player_position = (2,2)
+    action = Action(action=GridAction.left)
+
+    result_player_position = GridEnvironment.step(player_position, action)
+
+    expected_position = (2,1)
+    assert result_player_position == expected_position
+
+def test_step_right():
+    player_position = (2,2)
+    action = Action(action=GridAction.right)
+
+    result_player_position = GridEnvironment.step(player_position, action)
+
+    expected_position = (2,3)
+    assert result_player_position == expected_position
