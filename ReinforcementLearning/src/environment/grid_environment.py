@@ -35,11 +35,7 @@ class GridEnvironment:
     def __init__(self, width: int = 5, height: int = 5):
         self._width = width
         self._height = height
-        self._env, self._grid = self.create_grid(self._width, self._height)
-        self._final_position: State = self.get_final_position(self._grid)
-        self._player_position: State = self.get_player_position(
-            self._grid, self._final_position
-        )
+        self.reset()
 
     def reset(self) -> None:
         self._env, self._grid = self.create_grid(self._width, self._height)
