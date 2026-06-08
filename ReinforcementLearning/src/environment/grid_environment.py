@@ -1,37 +1,13 @@
 import random
-from enum import Enum
 
 import numpy as np
 from numpy import ndarray
-from pydantic import BaseModel
+
+from src.environment.environment import Environment
+from src.environment.schemas import Action, State, GridAction, Grid, Reward, Goal
 
 
-class GridAction(str, Enum):
-    up = "up"
-    down = "down"
-    left = "left"
-    right = "right"
-
-
-class Action(BaseModel):
-    action: GridAction
-
-
-class Grid(BaseModel):
-    width: int
-    height: int
-
-    @property
-    def shape(self) -> tuple[int, int]:
-        return self.height, self.width
-
-
-class State(BaseModel):
-    row_pos: int
-    column_pos: int
-
-
-class GridEnvironment:
+class GridEnvironment(Environment):
     def __init__(self, width: int = 5, height: int = 5):
         self._width = width
         self._height = height
@@ -63,7 +39,7 @@ class GridEnvironment:
     def step(
         self,
         action: Action,
-    ) -> tuple[State, float, bool]:
+    ) -> tuple[State, Reward, Goal]:
         player_position = self._player_position
         player_row = player_position.row_pos
         player_col = player_position.column_pos
@@ -87,15 +63,14 @@ class GridEnvironment:
             reward -= 1
 
         self._player_position = player_new_position
-        return player_new_position, reward, goal_reached
+        return player_new_position, Reward(reward=reward), Goal(reached=goal_reached)
 
-    @staticmethod
-    def get_available_actions(grid_shape: Grid, player_position: State) -> list[Action]:
-        row_player = player_position.row_pos
-        column_player = player_position.column_pos
+    def get_available_actions(self) -> list[Action]:
+        row_player = self._player_position.row_pos
+        column_player = self._player_position.column_pos
 
-        grid_width = grid_shape.width
-        grid_height = grid_shape.height
+        grid_width = self._grid.width
+        grid_height = self._grid.height
 
         available_action: list[Action] = []
 

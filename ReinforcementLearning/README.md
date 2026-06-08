@@ -25,14 +25,14 @@ README.md
 Erstelle eine Klasse:
 class GridWorld: …
 Anforderungen
-• Das Environment repräsentiert ein 2D‑Grid (z. B. 5×5).
+• Das Environment repräsentiert ein 2D‑Grid (z.B. 5×5).
 • Es gibt:
 	◦ eine Startposition
 	◦ eine Zielposition
 • Der Agent kann Aktionen ausführen:
 	◦ “up”, “down”, “left”, “right”
 • Das Environment liefert:
-	◦ state (z. B. (x, y))
+	◦ state (z.B. (x, y))
 	◦ reward
 	◦ done
 Methoden
@@ -72,7 +72,7 @@ Parameter
 Architekturhinweise
 • Keine Environment‑Logik im Agent.
 • Q‑Tabelle kapseln.
-• Agent soll austauschbar sein (z. B. später SARSA, DQN).
+• Agent soll austauschbar sein (z.B. später SARSA, DQN).
 ---
 🔁 Teil 3 – Training: Trainer
 Erstelle eine Klasse:

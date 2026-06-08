@@ -1,12 +1,7 @@
 import numpy as np
 
-from src.environment.grid_environment import (
-    GridAction,
-    Action,
-    GridEnvironment,
-    State,
-    Grid,
-)
+from src.environment.grid_environment import GridEnvironment
+from src.environment.schemas import GridAction, Action, State, Grid
 
 
 def test_grid_base_clases():
@@ -123,9 +118,11 @@ def test_available_action_center():
     grid_shape = Grid(height=5, width=5)
     player_position = State(row_pos=2, column_pos=2)
 
-    available_actions = GridEnvironment.get_available_actions(
-        grid_shape, player_position
-    )
+    env = GridEnvironment()
+    env._grid = grid_shape
+    env._player_position = player_position
+
+    available_actions = env.get_available_actions()
 
     assert len(available_actions) == 4
     assert Action(action=GridAction.right) in available_actions
@@ -138,9 +135,11 @@ def test_available_action_left_upper_corner():
     grid_shape = Grid(height=5, width=5)
     player_position = State(row_pos=1, column_pos=1)
 
-    available_actions = GridEnvironment.get_available_actions(
-        grid_shape, player_position
-    )
+    env = GridEnvironment()
+    env._grid = grid_shape
+    env._player_position = player_position
+
+    available_actions = env.get_available_actions()
     assert len(available_actions) == 2
     assert Action(action=GridAction.right) in available_actions
     assert Action(action=GridAction.down) in available_actions
