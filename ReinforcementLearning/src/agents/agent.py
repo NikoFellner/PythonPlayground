@@ -15,7 +15,7 @@ class Agent(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get_q_value(self, state: State, action: Action) -> None:
+    def get_q_value(self, state: State, action: Action) -> float:
         raise NotImplementedError
 
     @abstractmethod
