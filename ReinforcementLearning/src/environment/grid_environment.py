@@ -66,24 +66,30 @@ class GridEnvironment(Environment):
         return player_new_position, Reward(reward=reward), Goal(reached=goal_reached)
 
     def get_available_actions(self) -> list[Action]:
-        row_player = self._player_position.row_pos
-        column_player = self._player_position.column_pos
+        available_action: list[Action] = GridEnvironment.available_actions_in_grid(
+            self._player_position, self._grid
+        )
+        return available_action
 
-        grid_width = self._grid.width
-        grid_height = self._grid.height
-
+    @staticmethod
+    def available_actions_in_grid(state: State, grid: Grid) -> list[Action]:
         available_action: list[Action] = []
+        column_state = state.column_pos
+        row_state = state.row_pos
 
-        if column_player > 1:
+        grid_width = grid.width
+        grid_height = grid.height
+
+        if column_state > 1:
             available_action.append(Action(action=GridAction.up))
 
-        if column_player < grid_height:
+        if column_state < grid_height:
             available_action.append(Action(action=GridAction.down))
 
-        if row_player > 1:
+        if row_state > 1:
             available_action.append(Action(action=GridAction.left))
 
-        if row_player < grid_width:
+        if row_state < grid_width:
             available_action.append(Action(action=GridAction.right))
         return available_action
 
