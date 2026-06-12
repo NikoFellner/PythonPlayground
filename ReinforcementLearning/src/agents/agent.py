@@ -1,11 +1,11 @@
 from abc import abstractmethod, ABC
 
-from src.environment.schemas import State, Reward, Action
+from src.overarching.schemas import State, Reward, Action
 
 
 class Agent(ABC):
     @abstractmethod
-    def select_action(self, state: State) -> Action:
+    def select_action(self, state: State, available_actions: list[Action]) -> Action:
         raise NotImplementedError
 
     @abstractmethod

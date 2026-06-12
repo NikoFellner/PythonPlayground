@@ -1,7 +1,8 @@
 import numpy as np
 
 from src.environment.grid_environment import GridEnvironment
-from src.environment.schemas import GridAction, Action, State, Grid
+from src.overarching.dependency_injection import DI
+from src.overarching.schemas import GridAction, Action, State, Grid
 
 
 def test_grid_base_clases():
@@ -21,7 +22,7 @@ def test_grid_actions():
 
 
 def test_reset_returns_a_state_value():
-    env = GridEnvironment()
+    env = DI.env
 
     player_state = env._player_position
     env.reset()
@@ -101,7 +102,7 @@ def test_set_player_position():
 
 
 def test_create_environment():
-    env = GridEnvironment()
+    env = DI.env
     grid_field = env.create_env()
 
     assert np.count_nonzero(grid_field == 2) == 1
@@ -118,7 +119,7 @@ def test_available_action_center():
     grid_shape = Grid(height=5, width=5)
     player_position = State(row_pos=2, column_pos=2)
 
-    env = GridEnvironment()
+    env = DI.env
     env._grid = grid_shape
     env._player_position = player_position
 
@@ -135,7 +136,7 @@ def test_available_action_left_upper_corner():
     grid_shape = Grid(height=5, width=5)
     player_position = State(row_pos=1, column_pos=1)
 
-    env = GridEnvironment()
+    env = DI.env
     env._grid = grid_shape
     env._player_position = player_position
 
@@ -146,7 +147,7 @@ def test_available_action_left_upper_corner():
 
 
 def test_step_up():
-    env = GridEnvironment()
+    env = DI.env
     env._player_position = State(row_pos=2, column_pos=2)
     action = Action(action=GridAction.up)
 
@@ -157,7 +158,7 @@ def test_step_up():
 
 
 def test_step_down():
-    env = GridEnvironment()
+    env = DI.env
     env._player_position = State(row_pos=2, column_pos=2)
     action = Action(action=GridAction.down)
 
@@ -168,7 +169,7 @@ def test_step_down():
 
 
 def test_step_left():
-    env = GridEnvironment()
+    env = DI.env
     env._player_position = State(row_pos=2, column_pos=2)
     action = Action(action=GridAction.left)
 
@@ -179,7 +180,7 @@ def test_step_left():
 
 
 def test_step_right():
-    env = GridEnvironment()
+    env = DI.env
     env._player_position = State(row_pos=2, column_pos=2)
     action = Action(action=GridAction.right)
 

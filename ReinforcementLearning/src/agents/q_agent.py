@@ -2,8 +2,8 @@ import random
 from collections import defaultdict
 
 from src.agents.agent import Agent
-from src.environment.environment import Environment
-from src.environment.schemas import State, Action, GridAction, Reward
+from src.overarching.config_schemas import AgentConfig
+from src.overarching.schemas import State, Action, GridAction, Reward
 
 GRID_ACTIONS = [
     Action(action=GridAction.up),
@@ -14,26 +14,17 @@ GRID_ACTIONS = [
 
 
 class QAgent(Agent):
-    def __init__(
-        self,
-        env: Environment,
-        learning_rate: float = 0.01,
-        discount_factor: float = 0.95,
-        exploration_rate: float = 0.01,
-        decay: float = 0.01,
-    ):
-        self._learning_rate = learning_rate
-        self._discount_factor = discount_factor
-        self._exploration_rate = exploration_rate
-        self._decay = decay
+    def __init__(self, config: AgentConfig):
+        self._learning_rate = config.learning_rate
+        self._discount_factor = config.discount_factor
+        self._exploration_rate = config.exploration_rate
+        self._decay = config.decay
 
-        self._env = env
         self._q_table: defaultdict = defaultdict(
             lambda: defaultdict(lambda: defaultdict(float))
         )
 
-    def select_action(self, state: State) -> Action:
-        available_actions = self._env.get_available_actions()
+    def select_action(self, state: State, available_actions: list[Action]) -> Action:
         if random.random() < self._exploration_rate:
             return random.choice(available_actions)
         else:

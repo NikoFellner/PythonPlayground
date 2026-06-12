@@ -4,13 +4,14 @@ import numpy as np
 from numpy import ndarray
 
 from src.environment.environment import Environment
-from src.environment.schemas import Action, State, GridAction, Grid, Reward, Goal
+from src.overarching.config_schemas import EnvironmentConfig
+from src.overarching.schemas import Action, State, GridAction, Grid, Reward, Goal
 
 
 class GridEnvironment(Environment):
-    def __init__(self, width: int = 5, height: int = 5):
-        self._width = width
-        self._height = height
+    def __init__(self, config: EnvironmentConfig):
+        self._width = config.width
+        self._height = config.height
         self.reset()
 
     def reset(self) -> None:

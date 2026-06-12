@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 
-from src.environment.schemas import Action, State, Reward, Goal
+from src.overarching.schemas import Action, State, Reward, Goal
 
 
 class Environment(ABC):
