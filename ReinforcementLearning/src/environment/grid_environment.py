@@ -23,6 +23,10 @@ class GridEnvironment(Environment):
         self._env = self.set_final_positon(self._env, self._final_position)
         self._env = self.set_player_position(self._env, self._player_position)
 
+    @property
+    def player_state(self) -> State:
+        return self._player_position
+
     @staticmethod
     def suqared_difference(value_1: int, value_2: int) -> float:
         return np.square(value_2 - value_1)
