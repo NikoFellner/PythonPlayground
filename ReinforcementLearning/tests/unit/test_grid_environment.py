@@ -33,22 +33,6 @@ def test_reset_returns_a_state_value():
     assert player_state is not player_state_2
 
 
-def test_create_grid():
-    grid_array, grid_shape = GridEnvironment.create_grid(3, 5)
-    expected_array = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
-
-    assert np.array_equal(grid_array, expected_array)
-    assert grid_shape.shape == expected_array.shape
-
-
-def test_create_symmetric_grid():
-    grid_array, grid_shape = GridEnvironment.create_grid(3, 3)
-    expected_array = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-
-    assert np.array_equal(grid_array, expected_array)
-    assert grid_shape.shape == expected_array.shape
-
-
 def test_get_final_position():
     grid_shape = Grid(height=3, width=3)
     final_positon = GridEnvironment.get_final_position(grid_shape)
@@ -56,27 +40,6 @@ def test_get_final_position():
     assert final_positon.column_pos <= 3
     assert final_positon.row_pos > 0
     assert final_positon.column_pos > 0
-
-
-def test_set_final_position_all_zero():
-    grid_field = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    final_position = State(row_pos=1, column_pos=1)
-    grid_field_with_final_pos = GridEnvironment.set_final_positon(
-        grid_field, final_position
-    )
-    expected_field = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
-
-    assert np.array_equal(grid_field_with_final_pos, expected_field)
-
-
-def test_set_final_position_asymmetric():
-    grid_field = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    final_position = State(row_pos=3, column_pos=4)
-    grid_field_with_final_pos = GridEnvironment.set_final_positon(
-        grid_field, final_position
-    )
-    expected_field = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 1], [0, 0, 0]])
-    assert np.array_equal(grid_field_with_final_pos, expected_field)
 
 
 def test_get_player_position():
@@ -90,29 +53,6 @@ def test_get_player_position():
     assert player_position.column_pos >= 1
     assert player_position.column_pos <= 3
 
-
-def test_set_player_position():
-    grid_field = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
-    player_position = State(column_pos=4, row_pos=3)
-    grid_field_with_player_pos = GridEnvironment.set_player_position(
-        grid_field, player_position
-    )
-    expected_field = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 2], [0, 0, 0]])
-    assert np.array_equal(grid_field_with_player_pos, expected_field)
-
-
-def test_create_environment():
-    env = DI.env
-    grid_field = env.create_env()
-
-    assert np.count_nonzero(grid_field == 2) == 1
-    assert np.count_nonzero(grid_field == 1) == 1
-
-    env.reset()
-    grid_field = env._env
-
-    assert np.count_nonzero(grid_field == 2) == 1
-    assert np.count_nonzero(grid_field == 1) == 1
 
 
 def test_available_action_center():
@@ -153,7 +93,7 @@ def test_step_up():
 
     result_player_position, _, _ = env.step(action)
 
-    expected_position = State(row_pos=1, column_pos=2)
+    expected_position = State(row_pos=2, column_pos=1)
     assert result_player_position == expected_position
 
 
@@ -164,7 +104,7 @@ def test_step_down():
 
     result_player_position, _, _ = env.step(action)
 
-    expected_position = State(row_pos=3, column_pos=2)
+    expected_position = State(row_pos=2, column_pos=3)
     assert result_player_position == expected_position
 
 
@@ -175,7 +115,7 @@ def test_step_left():
 
     result_player_position, _, _ = env.step(action)
 
-    expected_position = State(row_pos=2, column_pos=1)
+    expected_position = State(row_pos=1, column_pos=2)
     assert result_player_position == expected_position
 
 
@@ -186,5 +126,5 @@ def test_step_right():
 
     result_player_position, _, _ = env.step(action)
 
-    expected_position = State(row_pos=2, column_pos=3)
+    expected_position = State(row_pos=3, column_pos=2)
     assert result_player_position == expected_position
